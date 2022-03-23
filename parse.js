@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var he = require('he')
 const fs = require('fs')
 const markdown = require('markdown').markdown
 
@@ -33,7 +34,7 @@ const parseMarkdown = (inputFile, outputDir) => {
     flag: 'r'
   })
 
-  fs.writeFile(output, markdown.toHTML(content), err => {
+  fs.writeFile(output, combineHtmlParts(content), err => {
     if (err) {
       throw new Error('There was a problem writing the html.')
     }
@@ -41,6 +42,24 @@ const parseMarkdown = (inputFile, outputDir) => {
 
   return true
 }
+
+const combineHtmlParts = content => {
+  const top = fs.readFileSync(`${process.cwd()}/partials/top.html`, {
+    encoding: 'utf8',
+    flag: 'r'
+  })
+
+  content = markdown.toHTML(content)
+
+  const bottom = fs.readFileSync(`${process.cwd()}/partials/bottom.html`, {
+    encoding: 'utf8',
+    flag: 'r'
+  })
+
+  return [top, he.decode(content), bottom].join()
+}
+
+var decodeEntities = content => he.decode(content)
 
 // make sure the output dir exists and writable
 const dirExistsAndIsWritable = dir => {

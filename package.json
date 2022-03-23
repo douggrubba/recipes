@@ -6,6 +6,7 @@
   "author": "Doug Grubba",
   "license": "MIT",
   "devDependencies": {
+    "he": "^1.2.0",
     "markdown": "^0.5.0"
   },
   "scripts": {
