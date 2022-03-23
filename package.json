@@ -1,0 +1,15 @@
+{
+  "name": "reecipes",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/douggrubba/rt",
+  "author": "Doug Grubba",
+  "license": "MIT",
+  "devDependencies": {
+    "markdown": "^0.5.0"
+  },
+  "scripts": {
+    "serve": "npx http-server",
+    "parse": "node parse.js"
+  }
+}
